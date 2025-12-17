@@ -1,1 +1,3 @@
-# webapp-api-ca
+# Assignment 2 - Web API.
+
+Name: Airidas Balkus
