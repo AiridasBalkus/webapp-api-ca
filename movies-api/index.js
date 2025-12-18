@@ -25,7 +25,7 @@ const port = process.env.PORT;
 
 app.use(express.json());
 
-app.use('/api/movies', authenticate, moviesRouter);
+app.use('/api/movies', moviesRouter);
 
 app.use('/api/users', usersRouter);
 
