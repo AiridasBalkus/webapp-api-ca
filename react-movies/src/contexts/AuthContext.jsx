@@ -35,6 +35,7 @@ const [isAuthenticated, setIsAuthenticated] = useState(!!existingToken);
   setAuthToken(null);
   setUserName("");
   setIsAuthenticated(false);
+  setTimeout(() => setIsAuthenticated(false), 100);
 };
 
 
@@ -48,7 +49,7 @@ return (
         userName
       }}
     >
-      {props.children} { }
+      {props.children} {}
     </AuthContext.Provider>
   );
 };

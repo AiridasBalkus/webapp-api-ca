@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export const MoviesContext = React.createContext(null);//eslint-disable-line
+export const MoviesContext = React.createContext(null); //eslint-disable-line
 
 const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
+  const [favorites, setFavorites] = useState(() => {
+  const stored = localStorage.getItem("favorites");
+  return stored ? JSON.parse(stored) : [];
+});
     const [myReviews, setMyReviews] = useState( {} ) 
     const [mustWatch, setMustWatch] = useState( [] )
+  
+    useEffect(() => {
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }, [favorites]);
 
   const addToFavorites = (movie) => {
     let newFavorites = [];
@@ -52,7 +59,7 @@ const MoviesContextProvider = (props) => {
       {props.children}
     </MoviesContext.Provider>
   );
-
 };
+
 
 export default MoviesContextProvider;

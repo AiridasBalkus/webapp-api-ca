@@ -18,6 +18,9 @@ import TrendingMoviesPage from './pages/trendingMoviesPage'
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import SearchPage from "./pages/searchPage";
 import AuthContextProvider from "./contexts/AuthContext";
+import LoginPage from "./pages/loginPage";
+import SignupPage from "./pages/signupPage";
+
 
 
 const queryClient = new QueryClient({
@@ -57,6 +60,8 @@ const App = () => {
         <AuthContextProvider>
         <MoviesContextProvider>
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
             <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
             <Route path="/movies/:id" element={<MoviePage />} />
