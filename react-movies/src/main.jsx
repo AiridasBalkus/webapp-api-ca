@@ -17,6 +17,8 @@ import UpcomingMoviesPage from './pages/upcomingMoviesPage'
 import TrendingMoviesPage from './pages/trendingMoviesPage'
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import SearchPage from "./pages/searchPage";
+import AuthContextProvider from "./contexts/AuthContext";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,8 +30,7 @@ const queryClient = new QueryClient({
   },
 });
 
-
-const MovieReviewPage = (props) => {
+const MovieReviewPage = () => {
   let location = useLocation();
   const {movie, review} = location.state;
   
@@ -53,6 +54,7 @@ const App = () => {
       color:"whitesmoke",
     }}>
         <SiteHeader />
+        <AuthContextProvider>
         <MoviesContextProvider>
           <Routes>
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
@@ -67,6 +69,7 @@ const App = () => {
             <Route path="*" element={ <Navigate to="/" /> } />
           </Routes>
         </MoviesContextProvider>
+        </AuthContextProvider>
         </div>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

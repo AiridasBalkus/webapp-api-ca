@@ -8,7 +8,7 @@ export const signup = async(username, password) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username: username, password: password }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
@@ -18,10 +18,10 @@ export const signup = async(username, password) => {
 };
 //login user(authenticate)
 export const login = async (username, password) => {
-    const res = await fetch(`${API}?action=login`, {
+    const res = await fetch(`${API}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username : username, password : password }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {

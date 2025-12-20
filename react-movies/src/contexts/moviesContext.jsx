@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const MoviesContext = React.createContext(null);
+export const MoviesContext = React.createContext(null);//eslint-disable-line
 
 const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
