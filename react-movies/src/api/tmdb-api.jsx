@@ -38,11 +38,7 @@ export const getMovie = (args) => {
 
 // Get the list of movie genres
   export const getGenres = () => {
-    return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        import.meta.env.VITE_TMDB_KEY +
-        "&language=en-US"
-    ).then( (response) => {
+     return fetch("http://localhost:8080/api/movies/genres").then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
           throw new Error(error.status_message || "Something went wrong");
@@ -92,35 +88,14 @@ export const getMovie = (args) => {
   };
   // Get upcoming movies
 export const getUpcomingMovies = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
-  ).then((response) => {
+  return fetch("http://localhost:8080/api/movies/upcoming").then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
         throw new Error(error.status_message || "Something went wrong");
       });
     }
     return response.json();
-  })
-  .catch((error) => {
-      throw error
   });
-};
-// Get trending movies for the week
-export const getTrendingMoviesWeek = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_KEY}`
-  )
-    .then(async (response) => {
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}));
-        throw new Error(error.status_message || "Something went wrong");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      throw error;
-    });
 };
 // Get details of an upcoming movie
 export const getUpcomingMovie = (args) => {
@@ -140,6 +115,23 @@ export const getUpcomingMovie = (args) => {
     throw error
  });
 };
+// Get trending movies for the week
+export const getTrendingMoviesWeek = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  )
+    .then(async (response) => {
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.status_message || "Something went wrong");
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
 //Get cast for a movie
 export const getMovieCredits = ({ queryKey }) => {
   const [, idPart] = queryKey;
