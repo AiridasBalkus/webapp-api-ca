@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner'
 
 
-const MoviePage = (props) => {
+const MoviePage = () => {
   const { id } = useParams();
   
     const { data: movie, error, isPending, isError  } = useQuery({

@@ -7,8 +7,8 @@ const AuthContextProvider = (props) => {
 const existingToken = localStorage.getItem("token");
 const [isAuthenticated, setIsAuthenticated] = useState(!!existingToken);
   const [authToken, setAuthToken] = useState(existingToken); //eslint-disable-line
-  const [userName, setUserName] = useState("");
-
+  const existingUserName = localStorage.getItem("userName") || "";
+  const [userName, setUserName] = useState(existingUserName);
 
    //Function to put JWT token in local storage.
   const setToken = (data) => {
@@ -22,6 +22,7 @@ const [isAuthenticated, setIsAuthenticated] = useState(!!existingToken);
       setToken(result.token)
       setIsAuthenticated(true);
       setUserName(username);
+      localStorage.setItem("userName", username);
     }
   };
 
@@ -32,10 +33,12 @@ const [isAuthenticated, setIsAuthenticated] = useState(!!existingToken);
 
   const signout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("userName");
   setAuthToken(null);
   setUserName("");
   setIsAuthenticated(false);
-  setTimeout(() => setIsAuthenticated(false), 100);
+  setTimeout(() => setIsAuthenticated(false), 10);
+  window.location.href = "/";
 };
 
 

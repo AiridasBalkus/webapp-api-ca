@@ -11,6 +11,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router";
 
+
 const ratings = [
   {
     value: 5,
@@ -94,7 +95,7 @@ const ReviewForm = ({ movie }) => {
     setOpen(true); // NEW
   };
 
-    const handleSnackClose = (event) => {
+    const handleSnackClose = () => {
     setOpen(false);
     navigate("/movies/favorites");
   };
@@ -102,7 +103,7 @@ const ReviewForm = ({ movie }) => {
 
 
   return (
-    <Box component="div" sx={styles.root}>
+    <Box component="div" sx={{ ...styles.form, background: 'rgba(255, 255, 255, 0.8)', color: 'black', p: 2, borderRadius: 2 }}>
       <Typography component="h2" variant="h3">
         Write a review
       </Typography>
@@ -182,7 +183,7 @@ const ReviewForm = ({ movie }) => {
         <Controller
           control={control}
           name="rating"
-          render={({ field: { onChange, value } }) => (
+          render={() => (
             <TextField
               id="select-rating"
               select
@@ -219,7 +220,9 @@ const ReviewForm = ({ movie }) => {
               reset({
                 author: "",
                 content: "",
+                rating: "3",
               });
+              setRating(3);
             }}
           >
             Reset

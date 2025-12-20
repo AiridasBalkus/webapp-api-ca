@@ -13,15 +13,15 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
-import UpcomingMoviesPage from './pages/upcomingMoviesPage'
+import UpComingMoviesPage from "./pages/upcomingMoviesPage";
 import TrendingMoviesPage from './pages/trendingMoviesPage'
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import SearchPage from "./pages/searchPage";
 import AuthContextProvider from "./contexts/AuthContext";
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
-
-
+import "./index.css";
+import ProtectedRoutes from "./protectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,23 +56,29 @@ const App = () => {
       background: "linear-gradient(180deg, #1e1e2f 30%, #121212 100%)",
       color:"whitesmoke",
     }}>
-        <SiteHeader />
         <AuthContextProvider>
         <MoviesContextProvider>
+          <SiteHeader />
           <Routes>
+            {/* Public */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            
+            {/* Protected (lab style) */}
+            <Route element={<ProtectedRoutes />}>
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+            </Route>
+            {/* Public */}
+            <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/actors/:id" element={<ActorDetailsPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+            <Route path="/movies/upcoming" element={<UpComingMoviesPage />} />
             <Route path="/movies/trending" element={<TrendingMoviesPage />} />
-            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
-            <Route path="*" element={ <Navigate to="/" /> } />
-          </Routes>
+            <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
         </MoviesContextProvider>
         </AuthContextProvider>
         </div>

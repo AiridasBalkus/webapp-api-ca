@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -13,7 +13,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -25,6 +25,8 @@ const SiteHeader = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
   const navigate = useNavigate();
+  const context = useContext(AuthContext);
+
 
   const menuOptions = [
     { label: "Home", path: "/" },
@@ -48,15 +50,34 @@ const SiteHeader = () => {
       <AppBar position="sticky" sx={{ background: "linear-gradient(90deg, #5a0b8f 0%, #7e3ff2 100%)", backdropFilter: "blur(6px)",boxShadow: "0 4px 12px rgba(0,0,0,0.25)",}}>
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            Movie - Discovery 
+            MOVIES!
           </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
+            All the BEST Movies!
           </Typography>
           <Button variant="outlined" sx={{borderColor: "#30629bff",color: "#ffffffff","&:hover": {backgroundColor: "rgba(196, 185, 37, 0.15)",borderColor: "#5dd14eff",},}}component={Link} to="/search">
           <SearchIcon fontSize="primary" />
           Search
           </Button>
+          {context.isAuthenticated ? (
+            <>
+              <Typography variant="subtitle1" sx={{ mx: 1 }}>
+                Welcome{context.userName ? ` ${context.userName}` : ""}!
+              </Typography>
+              <Button color="inherit" onClick={() => context.signout()}>
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button color="inherit" component={Link} to="/login">
+                Login
+              </Button>
+              <Button color="inherit" component={Link} to="/signup">
+                Signup
+              </Button>
+            </>
+          )}
             {isMobile ? (
               <>
                 <IconButton

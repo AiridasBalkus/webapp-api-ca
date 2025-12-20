@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Navigate, useLocation, Link } from "react-router";
-import { AuthContext } from "../contexts/authContext";
+import { AuthContext } from "../contexts/AuthContext";
 import {
   Box,
   Paper,
