@@ -5,11 +5,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useForm, Controller } from "react-hook-form";
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router";
+import { addReview } from "../../api/reviews-api";
 
 
 const ratings = [
@@ -63,7 +64,6 @@ const styles = {
 };
 
 const ReviewForm = ({ movie }) => {
-  const context = useContext(MoviesContext);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = useState(false); 
   const navigate = useNavigate();
@@ -87,11 +87,11 @@ const ReviewForm = ({ movie }) => {
   };
 
   
-    const onSubmit = (review) => {
+    const onSubmit =  async (review) => {
     review.movieId = movie.id;
     review.rating = rating;
     // console.log(review);
-    context.addReview(movie, review);
+    await addReview(review);
     setOpen(true); // NEW
   };
 

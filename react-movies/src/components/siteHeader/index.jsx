@@ -30,11 +30,16 @@ const SiteHeader = () => {
 
   const menuOptions = [
     { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
+    { label: "Favorites", path: "/movies/favorites", auth: true },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Trending", path: "/movies/trending" },
+    { label: "My Reviews", path: "/myreviews", auth: true },
   ];
-  
+  //filters out menu options based on authentication status of the user
+  const visibleMenuOptions = menuOptions.filter(
+  (opt) => !opt.auth || context.isAuthenticated
+);
+
 
   const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
@@ -104,7 +109,7 @@ const SiteHeader = () => {
                   open={open}
                   onClose={() => setAnchorEl(null)}
                 >
-                  {menuOptions.map((opt) => (
+                  {visibleMenuOptions.map((opt) => (
                     <MenuItem
                       key={opt.label}
                       onClick={() => handleMenuSelect(opt.path)}
@@ -116,7 +121,7 @@ const SiteHeader = () => {
               </>
             ) : (
               <>
-                {menuOptions.map((opt) => (
+                {visibleMenuOptions.map((opt) => (
                   <Button
                     key={opt.label}
                     color="inherit"

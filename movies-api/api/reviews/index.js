@@ -1,6 +1,6 @@
 import express from 'express';
 import Review from "../../models/reviewModel.js";
-import {authenticate} from '../../authenticate.js';
+import authenticate from '../../authenticate/index.js';
 
 const router = express.Router(); // eslint-disable-line
 
@@ -13,7 +13,7 @@ router.post("/", authenticate, async (req, res) => {
     });
     res.status(201).json(review);
   } catch (err) {
-    res.status(400).json({ msg: 'That did not work!' });
+    res.status(400).json({ msg: err.message });
   }
 });
 //get reviews for logged in user

@@ -22,6 +22,7 @@ import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 import "./index.css";
 import ProtectedRoutes from "./protectedRoutes";
+import MyReviewsPage from "./pages/myReviewsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,16 +61,9 @@ const App = () => {
         <MoviesContextProvider>
           <SiteHeader />
           <Routes>
-            {/* Public */}
+            {/* Public Routes - as done in the labs and jsut also visually clear and seperated*/}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            
-            {/* Protected (lab style) */}
-            <Route element={<ProtectedRoutes />}>
-            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-            </Route>
-            {/* Public */}
             <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/actors/:id" element={<ActorDetailsPage />} />
@@ -78,6 +72,14 @@ const App = () => {
             <Route path="/movies/upcoming" element={<UpComingMoviesPage />} />
             <Route path="/movies/trending" element={<TrendingMoviesPage />} />
             <Route path="*" element={<Navigate to="/" />} />
+
+            {/* Protected Routes - as done in the labs*/}
+            <Route element={<ProtectedRoutes />}>
+            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+            <Route path="/myreviews" element={<MyReviewsPage />} />
+            </Route>
+
             </Routes>
         </MoviesContextProvider>
         </AuthContextProvider>

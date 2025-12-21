@@ -1,7 +1,6 @@
 const API = "http://localhost:8080/api/users";
 
 //signup user(regiser)
-
 export const signup = async(username, password) => {
     const res = await fetch(`${API}?action=register`, {
         method: "POST",
